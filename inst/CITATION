@@ -1,0 +1,43 @@
+citHeader("To cite LAGOSNE in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Building a multi-scaled geospatial temporal
+    ecology database from disparate data sources: fostering open science and
+    data reuse",
+  author       = personList(
+                   person("P.A.", "Soranno"),
+                   person("E.G.", "Bissell"),
+                   person("K.S.", "Cheruvelil"),
+                   person("S.T.", "Christel"),
+                   person("S.M.", "Collins"),
+                   person("C.E.", "Fergus"),
+                   person("C.T.", "Filstrup"),
+                   person("J.F.", "Lapierre"),
+                   person("N.R.", "Lottig"),
+                   person("S.K.", "Oliver"),
+                   person("C.E.", "Scott")),
+  journal      = "Gigascience",
+  year         = "2015",
+  volume       = "4",
+  number       = "1",
+
+  textVersion  =
+  paste("Soranno, P.A., Bissell, E.G., Cheruvelil, K.S., Christel, S.T., Collins,
+    S.M., Fergus, C.E., Filstrup, C.T., Lapierre, J.F., Lottig, N.R., Oliver,
+    S.K. and Scott, C.E., 2015. Building a multi-scaled geospatial temporal
+    ecology database from disparate data sources: fostering open science and
+    data reuse. Gigascience, 4(1)")
+)
+
+citEntry(entry = "Manual",
+  title        = "LAGOSNE: Interface to the LAke multi-scaled GeOSpatial & temporal database",
+  author       = personList(
+                   as.person("Joseph Stachelek"),
+                   as.person("Samantha Oliver")),
+  year         = "2017",
+  note         = "R package version 1.0.0",
+  url          = "https://github.com/cont-limno/LAGOS",
+  textVersion  =
+  paste("Stachelek J., Oliver S. 2017. LAGOSNE: Interface to the LAke multi-scaled GeOSpatial & temporal database. R package version 1.0.0. https://github.com/cont-limno/LAGOSNE
+  ")
+)
