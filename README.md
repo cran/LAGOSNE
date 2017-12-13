@@ -15,12 +15,12 @@ install.packages("LAGOSNE")
 
 # install development version from Github
 # install devtools if not found - install.packages("devtools")
-devtools::install_github("cont-limno/LAGOSNE", update_dependencies = TRUE)
+# devtools::install_github("cont-limno/LAGOSNE", update_dependencies = TRUE)
 ```
 
 ### Data
 
-The `lagosne_get` function downloads the LAGOSNE files corresponding to the specified version from the [EDI data repository](https://portal.edirepository.org/nis/home.jsp). Files are stored in a temporary directory before being "compiled" to an `R` data format in the location returned by `rappdirs::user_data_dir()`. Data only needs to be downloaded one time per version per machine.
+The `lagosne_get` function downloads the LAGOSNE files corresponding to the specified version from the [EDI data repository](https://portal.edirepository.org/nis/home.jsp). Files are stored in a temporary directory before being "compiled" to an `R` data format in the location returned by `rappdirs::user_data_dir()`. Data only needs to be downloaded one time per version per machine. **The latest version of the `LAGOSNE` dataset is `1.087.1`.**
 
 ``` r
 library(LAGOSNE)
@@ -34,15 +34,6 @@ Usage
 
 ``` r
 library(LAGOSNE)
-#> Welcome to LAGOSNE version 1.0.0. To cite LAGOSNE in publications use: 
-#>  
-#> Soranno, P.A., Bissell, E.G., Cheruvelil, K.S., Christel, S.T., Collins,
-#>     S.M., Fergus, C.E., Filstrup, C.T., Lapierre, J.F., Lottig, N.R., Oliver,
-#>     S.K., Scott, C.E., Smith, N.J., Stopyak, S., Yuan, S., Bremigan, M.T.,
-#>     Downing, J.A., Gries, C., Henry, E.H., Skaff, N.K., Stanley, E.H.,
-#>     Stow, C.A., Tan, P.N., Wagner, T. and Webster, K.E. 2015. Building a
-#>     multi-scaled geospatial temporal ecology database from disparate data
-#>     sources: fostering open science and data reuse. Gigascience, 4(1)
 ```
 
 ### Load data
@@ -252,6 +243,8 @@ References
 
 Oliver, SK, PA Soranno, CE Fergus, T Wagner, K Webster, CE Scott, LA Winslow, J Downing, and EH Stanley. 2015. “LAGOS - Predicted and Observed Maximum Depth Values for Lakes in a 17-State Region of the U.S.” <https://dx.doi.org/10.6073/pasta/edc06bbae6db80e801b6e52253f2ea09>.
 
+Soranno, P.A., Bacon, L.C., Beauchene, M., Bednar, K.E., Bissell, E.G., Boudreau, C.K., Boyer, M.G., Bremigan, M.T., Carpenter, S.R., Carr, J.W. Cheruvelil, K.S., and ... , 2017. LAGOS-NE: A multi-scaled geospatial and temporal database of lake ecological context and water quality for thousands of US lakes. GigaScience, <https://doi.org/10.1093/gigascience/gix101>
+
 Soranno, PA, EG Bissell, KS Cheruvelil, ST Christel, SM Collins, CE Fergus, CT Filstrup, et al. 2015. “Building a Multi-Scaled Geospatial Temporal Ecology Database from Disparate Data Sources: Fostering Open Science and Data Reuse.” Gigascience 4 (1). <https://dx.doi.org/10.1186/s13742-015-0067-4>.
 
-Stachelek, J, and SK Oliver. 2017. LAGOSNE: R Interface to the Lake Multi-Scaled Geospatial & Temporal Database. <https://github.com/cont-limno/LAGOSNE>.
+Stachelek, J, and SK Oliver. 2017. LAGOSNE: Interface to the Lake Multi-Scaled Geospatial and Temporal Database. <https://github.com/cont-limno/LAGOSNE>.
