@@ -4,45 +4,61 @@
 #'
 #' @export
 #' @importFrom utils download.file
-#' @param dest_folder file.path not implemented yet
-#' by \code{\link[rappdirs]{user_data_dir}}.
+#' @param dest_folder file.path to save data. Default to a temporary folder.
+#' Recommended to set to LAGOSNE:::lagos_path() so that data persists between
+#' R sessions.
 #' @param version character LAGOSNE database version string
 #' @param overwrite logical overwrite existing data for the specified version
 #' @examples \dontrun{
-#' lagosne_get(version = "1.087.1")
+#' lagosne_get()
 #' }
-lagosne_get <- function(version, overwrite = FALSE, dest_folder = NA){
+lagosne_get <- function(version = lagosne_version(), overwrite = FALSE,
+                        dest_folder = tempdir()){
+
+  if(dest_folder != lagos_path()){
+    message("Set dest_folder to LAGOSNE:::lagos_path() so that data persists
+between R sessions. \n")
+  }
 
   outpath <- file.path(lagos_path(), paste0("data_", version, ".rds"))
   if(file.exists(outpath) & !overwrite){
-    warning("LAGOS data for this version already exists on the local machine.
+    warning("LAGOSNE data for this version already exists on the local machine.
   Re-download if neccessary using the 'overwrite` argument.'")
     return(invisible("LAGOS is the best"))
   }
 
-    edi_baseurl <- "https://portal.edirepository.org/nis/dataviewer?packageid="
+    edi_baseurl   <- "https://portal.edirepository.org/nis/dataviewer?packageid="
     pasta_baseurl <- "http://pasta.lternet.edu/package/data/eml/edi/"
-    
-    locus_base_edi  <- paste0(edi_baseurl, c("edi.100.4"))
+
+    locus_base_edi   <- paste0(edi_baseurl, c("edi.100.4"))
     locus_base_pasta <- paste0(pasta_baseurl, "100/4")
-    locus_dir   <- get_lagos_module(locus_base_edi, locus_base_pasta, "locus", overwrite)
-    
-    limno_base_edi <- paste0(edi_baseurl, c("edi.101.2"))
+    locus_dir        <- get_lagos_module(locus_base_edi, locus_base_pasta,
+                                         "locus", overwrite)
+
+    limno_base_edi   <- paste0(edi_baseurl, c("edi.101.2"))
     limno_base_pasta <- paste0(pasta_baseurl, "101/2")
-    limno_dir  <- get_lagos_module(limno_base_edi, limno_base_pasta, "limno", overwrite)
-    
-    geo_base_edi <- paste0(edi_baseurl, c("edi.99.5"))
+    limno_dir        <- get_lagos_module(limno_base_edi, limno_base_pasta,
+                                         "limno", overwrite)
+
+    geo_base_edi   <- paste0(edi_baseurl, c("edi.99.5"))
     geo_base_pasta <- paste0(pasta_baseurl, "99/5")
-    geo_dir  <- get_lagos_module(geo_base_edi, geo_base_pasta, "geo", overwrite)
-  
-  dir.create(lagos_path(), showWarnings = FALSE)
+    geo_dir        <- get_lagos_module(geo_base_edi, geo_base_pasta,
+                                       "geo", overwrite)
+
+  dir.create(dest_folder, showWarnings = FALSE)
+
+  message("LAGOSNE downloaded. Now compressing to native R object ...")
 
   lagosne_compile(version = version,
                 locus_folder = locus_dir,
                 limno_folder = limno_dir,
-                geo_folder = geo_dir,
-                dest_folder = dest_folder
+                geo_folder   = geo_dir,
+                dest_folder  = dest_folder
                 )
+
+  return(invisible(list(locus_folder = locus_dir,
+                        limno_folder = limno_dir,
+                        geo_folder   = geo_dir)))
 }
 
 #' Get depth data

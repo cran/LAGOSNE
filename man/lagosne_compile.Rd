@@ -4,32 +4,30 @@
 \alias{lagosne_compile}
 \title{Compile LAGOSNE data}
 \usage{
-lagosne_compile(version, format = "rds", limno_folder = NA,
-  geo_folder = NA, locus_folder = NA, dest_folder = NA)
+lagosne_compile(version, limno_folder = NA, geo_folder = NA,
+  locus_folder = NA, dest_folder = NA)
 }
 \arguments{
 \item{version}{character LAGOSNE database version string}
 
-\item{format}{character choice of "rds" or "sqlite"}
+\item{limno_folder}{file.path to limno export folder}
 
-\item{limno_folder}{file.path to limno export folder.}
+\item{geo_folder}{file.path to geo export folder}
 
-\item{geo_folder}{file.path to geo export folder.}
-
-\item{locus_folder}{file.path to locus export folder.}
+\item{locus_folder}{file.path to locus export folder}
 
 \item{dest_folder}{file.path optional will default to the location returned
 by \code{\link[rappdirs]{user_data_dir}}}
 }
 \description{
-Compile LAGOSNE data from component flat files
+Compile LAGOSNE data from component flat files. This function should rarely be called directly outside of manual updating of source data.
 }
 \examples{
 \dontrun{
-lagosne_compile("1.087.1", format = "rds",
+lagosne_compile("1.087.1"
  limno_folder = "~/Downloads/LAGOS-NE-LIMNO-EXPORT",
  geo_folder   = "~/Downloads/LAGOS-NE-GEO-EXPORT",
- locus_folder = "~/Downloads/LAGOS-NE-GEO-LOCUS-EXPORT")
+ locus_folder = "~/Downloads/LAGOS-NE-LOCUS-EXPORT")
 }
 
 }

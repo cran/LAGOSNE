@@ -4,14 +4,15 @@
 \alias{coordinatize}
 \title{Convert a LAGOSNE flat file into a spatial object}
 \usage{
-coordinatize(dt, latname = "nhd_lat", longname = "nhd_long", crs = 4326)
+coordinatize(dt, latname = "nhd_lat", longname = "nhd_long",
+  crs = 4326)
 }
 \arguments{
 \item{dt}{data.frame}
 
 \item{latname}{character name of latitude column; default is "nhd_lat"}
 
-\item{longname}{character name of longitude column; defailt is "nhd_long"}
+\item{longname}{character name of longitude column; default is "nhd_long"}
 
 \item{crs}{numeric epsg code; default is 4326 WGS84-lat-long}
 }

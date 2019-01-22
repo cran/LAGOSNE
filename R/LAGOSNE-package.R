@@ -7,17 +7,25 @@
 #' @author \email{stachel2@msu.edu}
 NULL
 
+#' Latest LAGOSNE version
+#' @name lagosne_version
+#' @export
+#' @examples
+#' lagosne_version()
+lagosne_version <- function(){"1.087.1"}
+
 #' LAGOSNE Spatial Classifications Metadata
 #'
 #' Data frames containing metadata for each spatial classification at which
 #'  ecological context data are derived in LAGOSNE. The spatial classifications
-#'  include 100m buffers (lakes4ha.buffer100m),
-#'  500m buffers (lakes4ha.buffer500m), interlake watersheds (iws),
+#'  include 100m buffers (buffer100m),
+#'  500m buffers (buffer500m), interlake watersheds (iws),
 #'  hydrologic units (hu12, hu8, hu4), ecological drainage units (edu),
 #'  counties (county), and states (state). Each abbreviation is the name of the
 #'  data frame, with all or a subset of the following variables. For more
 #'  information about derivation of each spatial classification, see Details
-#'  below or [insert supp docs] from Soranno et al. 2015.
+#'  below or \href{https://doi.org/10.1186/s13742-015-0067-4}{Additional file 7}
+#'  from Soranno et al. 2015.
 #'
 #' The nine LAGOSNE spatial classifications were used to summarize the ecological
 #' context of each lake. Ecological context themes include
@@ -32,11 +40,11 @@ NULL
 #'     connected via permanent streams.  For details on how the watersheds were
 #'     delineated, see additional file 8 in Soranno et al. (2015). Themes
 #'     derived at the iws classification include LULC and CONN.
-#'     \item lakes4ha.buffer100m: a dataframe with 51065 of 3 variables.
+#'     \item buffer100m: a dataframe with 51065 of 3 variables.
 #'     Buffers are a 100 m equidistant buffer of the land that is 100 m from
 #'     the lake shoreline, calculated using the ArcGIS Buffer tool. Themes
 #'     derived at the 100m buffer classification include LULC.
-#'     \item lakes4ha.buffer500m: a dataframe with 51065 of 3 variables.
+#'     \item buffer500m: a dataframe with 51065 of 3 variables.
 #'     Buffers are a 500 m equidistant buffer of the land that is 500 m from
 #'     the lake shoreline, calculated using the ArcGIS Buffer tool. Themes
 #'     derived at the 500m buffer classification include LULC and CONN.
@@ -81,12 +89,12 @@ NULL
 #' classification (see Details below).
 #' \itemize{
 #'     \item *_nhdid: permanent lake-specific identifier from the National
-#'     Hydrography Dataset (* = lakes4ha_buffer100m, lakes4ha_buffer500m, iws)
+#'     Hydrography Dataset (* = buffer100m, buffer500m, iws)
 #'     \item *_name: text name of the zone (* = iws, hu12, hu8, hu4,
 #'     county, state)
 #'     \item hu*: unique zone identifier (* = 12, 8, 4)
 #'     \item *_ha: area of spatial classification in hectares
-#'     (* = lakes4ha_buffer100m, lakes4ha_buffer500m, hu12, hu8, hu4, edu,
+#'     (* = buffer100m, buffer500m, hu12, hu8, hu4, edu,
 #'     county)
 #'     \item *_areaha: area of spatial classification in hectares (* = iws, )
 #'     \item *_perimkm: perimeter of spatial classification in kilometers
@@ -95,7 +103,7 @@ NULL
 #'     (* = iws, hu12, hu8, hu4, edu, county, state)
 #'     \item *_long: longitude of centroid of polygon in decimal degrees
 #'     (NAD83) (* = iws, hu12, hu8, hu4, edu, county, state)
-#'     \item *_lakeareaha: lake area (ha) of focal lake within polygon
+#'     \item *_lakeareaha: lake area (ha) of focal lake associated with polygon
 #'     (* = iws, )
 #'     \item *_country: whether the polygon lies within the US ("US") or the
 #'     US and Canada (US_CA) (* = hu12, edu)
@@ -111,8 +119,7 @@ NULL
 #'     \item *_zoneid: a unique identifier for each IWS in LAGOSNE, numbered 1:n
 #'     with classification prefix (e.g., HU12_1) (* = iws, hu12, hu8, hu4, edu,
 #'     county, state)
-#'     \item *_lagoslakeid: LAGOSNE unique identifier for focal lake
-#'     (* = lakes4ha_buffer100m, lakes_buffer500m, iws, )
+#'     \item lagoslakeid: LAGOSNE unique identifier for focal lake
 #'     \item hu4_states: states that intersect hu4 zone polygon
 #'     \item state: 2-letter state abbreviation
 #'     \item county_state: state where county is located
@@ -121,8 +128,9 @@ NULL
 #' @docType data
 #' @keywords datasets
 #' @name classifications
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
-#' @aliases lakes4ha.buffer100m lakes4ha.buffer500m buffer100m buffer500m iws hu12 hu8 hu4 edu county state classification scales
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
+#' @aliases buffer100m buffer500m iws hu12 hu8 hu4 edu county state classification scales lakeareaha
+#' @seealso \code{\link[LAGOSNE]{conn}} \code{\link{chag}} \code{\link{lulc}}
 NULL
 
 #' Land Use Land Cover (LULC) Data Frames
@@ -137,19 +145,19 @@ NULL
 #' @format Data frames with all or a subset of the following variables. Number
 #' of observations is equal to the number of zones in each spatial scale
 #' (see Details below). Wildcard options include the 9 LAGOSNE spatial scales
-#' (* = lakes4ha.buff100m, lakes4ha.buffer500m, iws, hu12, hu8, hu4, edu,
+#' (* = buffer100m, buffer500m, iws, hu12, hu8, hu4, edu,
 #' county, state), year of measurement (** = 1992, 2001, 2006, 2011), and unit
 #' of measurement in hectares or percent of zone area (*** = ha, pct unless
 #' noted otherwise). Each variable is available at each scale, year, and unit
 #' unless otherwise noted.
 #' \itemize{
-#'    \item *_nhdid (* = lakes4ha_buffer100m, lakes4ha_buffer500m, iws)
+#'    \item *_nhdid (* = buffer100m, buffer500m, iws)
 #'    \item *_canopy2001_***: per pixel tree canopy percent measured 2001.
 #'     Summary statistics include minimum, maximum, mean and standard deviation
 #'     (*** = min, max, mean, std).
 #'    \item *_damdensity_***: dams in zone. Summary statistics include a point
 #'    count, points per hectare, and points per square kilometer
-#'    (*** = pointcount, poinsperha, pointspersqkm)
+#'    (*** = pointcount, pointsperha, pointspersqkm)
 #'    \item *_nlcd**_***_0: No data
 #'    \item *_nlcd**_***_11: Open water
 #'    \item *_nlcd1992_***_21: Residential, low intensity
@@ -204,8 +212,7 @@ NULL
 #'    or standard deviation (*** = min, max, mean, std)
 #'    \item *_zoneid: unique zone identifier (* = iws, hu12, hu8, hu4, edu,
 #'    county, state)
-#'    \item *_lagoslakeid: unique integer identifier for focal lake
-#'    (* = lakes4ha_buffer100m, lakes4ha_buffer500m, iws)
+#'    \item lagoslakeid: unique integer identifier for focal lake
 #'    \item lakeconnection: connectivity class of focal lake. Only in iws.lulc
 #'    table.
 #'    \item borderiws: whether iws zone intersects Canadian border
@@ -216,7 +223,7 @@ NULL
 #' @keywords datasets
 #' @name lulc
 #' @aliases buffer100m.lulc buffer500m.lulc iws.lulc hu12.lulc hu8.lulc hu4.lulc edu.lulc county.lulc state.lulc topography nlcd
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}; \href{http://www.mrlc.gov/nlcd2011.php}{National Land Cover Database},
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12};
 NULL
 
 #' CHAG Datasets
@@ -309,8 +316,8 @@ NULL
 #' @docType data
 #' @keywords datasets
 #' @name chag
-#' @aliases hu12.chag hu8.chag hu4.chag edu.chag county.chag state.chag deposition climate hydrology geology baseflow
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @aliases hu12.chag hu8.chag hu4.chag edu.chag county.chag state.chag deposition climate hydrology geology baseflow runoff
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' Epilimnion Water Quality Data
@@ -412,7 +419,7 @@ NULL
 #' @keywords datasets
 #' @name epi_nutr
 #' @aliases nutrients chla colora doc phosphorus nitrogen chlorophyll waterquality censorcode qualifiers detectionlimit
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' Metadata for Lakes with Water Quality
@@ -443,7 +450,7 @@ NULL
 #' @keywords datasets
 #' @name lakes_limno
 #' @aliases meandepth maxdepth legacyid depth
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' Metadata for all lakes > 1ha
@@ -487,20 +494,20 @@ NULL
 #' @keywords datasets
 #' @name locus
 #' @aliases location
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' Connectivity Datasets
 #'
 #' Datasets containing lake, stream, and wetland abundance and connectivity
-#'  metrics calculated at the 500m buffer (lakes4ha.buffer500m.conn), HUC12
+#'  metrics calculated at the 500m buffer (buffer500m.conn), HUC12
 #'   (hu12.conn), HUC8 (hu8.conn), HUC4 (hu4.conn), EDU (edu.conn), county
 #'    (county.conn) and state (state.conn) classifications.
 #'
 #' @format Data frames with all or a subset of the following variables. Number
 #' of observations is equal to the number of zones in each spatial
 #' classification (see ?classifications). Wildcard options include a subset of
-#' the LAGOSNE spatial classifications (* = lakes4ha_buffer500m, iws,
+#' the LAGOSNE spatial classifications (* = buffer500m, iws,
 #' hu12, hu8, hu4, edu, county, state) and additional wildcards described
 #' below.
 #' \itemize{
@@ -775,8 +782,8 @@ NULL
 #' @docType data
 #' @keywords datasets
 #' @name conn
-#' @aliases connectivity buffer500m.conn lakes4ha.buffer500m.conn iws.conn hu12.conn hu8.conn hu4.conn edu.conn county.conn state.conn
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @aliases connectivity buffer500m.conn iws.conn hu12.conn hu8.conn hu4.conn edu.conn county.conn state.conn
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' Lake Geospatial Metadata
@@ -852,7 +859,7 @@ NULL
 #' @keywords datasets
 #' @name lagoslakes
 #' @aliases lakes.geo
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' Secchi (Water Clarity) Data
@@ -890,7 +897,7 @@ NULL
 #' @docType data
 #' @keywords datasets
 #' @name secchi
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' LAGOSNE sources
@@ -925,15 +932,24 @@ NULL
 #' @keywords datasets
 #' @name source
 #' @aliases programs lagos.source.programs source.programs lagos.source lagos_source_program
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
 #' LAGOSNE subset
 #'
-#' A dataset with the first two rows of many LAGOSNE tables
+#' A dataset with the first two rows of many of the LAGOSNE tables
 #'
 #' @docType data
 #' @keywords datasets
 #' @name lg_subset
-#' @references Soranno et al. (2015) \href{https://gigascience.biomedcentral.com/articles/10.1186/s13742-015-0067-4}{Gigascience 4:28}
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 "lg_subset"
+
+#' LAGOSNE extent
+#'
+#' A simple features polygons representing the geographical extent of the LAGOSNE dataset
+#' @docType data
+#' @keywords datasets
+#' @name lg_extent
+#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
+"lg_extent"

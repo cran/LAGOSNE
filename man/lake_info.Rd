@@ -2,29 +2,46 @@
 % Please edit documentation in R/info.R
 \name{lake_info}
 \alias{lake_info}
-\title{Lake attribute information}
+\title{Get a summary of lake attribute information}
 \usage{
-lake_info(dt, name, state)
+lake_info(lagoslakeid = NA, name = NA, state = NA,
+  dt = lagosne_load(), ...)
 }
 \arguments{
-\item{dt}{list of data.frames. output of \code{\link[LAGOSNE]{lagosne_load}}.}
+\item{lagoslakeid}{numeric lake id}
 
 \item{name}{character lake name not caps sensitive}
 
 \item{state}{character state name not caps sensitive}
+
+\item{dt}{list of data.frames. output of \code{\link[LAGOSNE]{lagosne_load}}.}
+
+\item{\dots}{arguments passed to \code{\link[base]{agrepl}} to fuzzy match
+lake name}
 }
 \description{
-Return lake attribute information from its name and state.
+Return lake attribute information from its name and state or its lagoslakeid.
 }
 \examples{
 \dontrun{
-dt <- lagos_load("1.087.1")
-lake_info(dt, "Sunapee Lake", "New Hampshire")
+lake_info(lagoslakeid = 4314)
+lake_info(lagoslakeid = 7441)
+lake_info(lagoslakeid = 244)
+lake_info(lagoslakeid = 4686)
+lake_info(lagoslakeid = 8016)
+lake_info(lagoslakeid = c(21864, 2317))
+lake_info(lagoslakeid = c(1441))
+lake_info(lagoslakeid = c(125428, 1441))
+lake_info(lagoslakeid = c(4686, 8016))
 
-  name = c("Oneida Lake", "Sunapee Lake", "Lake Mendota"),
-  state = c("New York", "New Hampshire", "Wisconsin"))
+# fuzzy matching to lake name
+lake_info(name = "Duck Lake", state = "Michigan")
+# exact matching to lake name
+lake_info(name = "Duck Lake", state = "Michigan",
+          max.distance = list(all = 0))
 
-  apply(focal_lakes, 1, function(x) lake_info(
-    dt = dt, name = x[1], state = x[2]))
+lake_info(name = "Sunapee Lake", state = "New Hampshire")
+lake_info(name = c("Sunapee Lake", "Oneida Lake"),
+              state = c("New Hampshire", "New York"))
 }
 }

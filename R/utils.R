@@ -9,8 +9,9 @@
 #' @return data.frame
 load_lagos_txt <- function(file_name, sep = "\t", ...){
 
-  read.table(file_name, header = TRUE, sep = sep, quote = "", dec = ".",
-    strip.white = TRUE, comment.char = "")
+  read.table(file_name, header = TRUE, sep = sep, quote = "\"",
+             dec = ".", strip.white = TRUE, comment.char = "",
+             stringsAsFactors = FALSE)
 
 }
 
@@ -106,7 +107,7 @@ get_if_not_exists <- function(url, destfile, overwrite){
 
 stop_if_not_exists <- function(src_path) {
   if(!file.exists(src_path)){
-    stop(paste0("Dataset not found at: ", src_path, "\n Try running the appropriate `lagos_get*` and/or `lagos_compile` commands."))
+    stop(paste0("Dataset not found at: ", src_path, "\n Try running the `lagosne_get` command."))
   }
 }
 
@@ -134,14 +135,13 @@ lagos_names <- function(dt) purrr::map(dt, names)
 #' }
 #' @export
 #' @examples \dontrun{
-#' dt <- lagosne_load("1.087.1")
-#' query_lagos_names(dt, "_dep_")
-#' query_lagos_names(dt, "_dep_", "hu4")
-#' query_lagos_names(dt, "chla")
-#' query_lagos_names(dt, "secchi")
-#' query_lagos_names(dt, "conn")
+#' query_lagos_names("_dep_")
+#' query_lagos_names("_dep_", "hu4")
+#' query_lagos_names("chla")
+#' query_lagos_names("secchi")
+#' query_lagos_names("conn")
 #' }
-query_lagos_names <- function(dt, grep_string, scale = NA){
+query_lagos_names <- function(grep_string, scale = NA, dt = lagosne_load()){
 
   dt_names <- lagos_names(dt)
   names_matches <- unlist(lapply(dt_names,
@@ -238,4 +238,18 @@ get_lagos_module <- function(edi_url, pasta_url, folder_name, overwrite){
     function(i) get_if_not_exists(files[i], file_paths[i], overwrite)))
 
   local_dir
+}
+
+# from the Hmisc package
+capitalize <- function(string) {
+  capped <- grep("^[A-Z]", string, invert = TRUE)
+  substr(string[capped], 1, 1) <- toupper(substr(string[capped], 1, 1))
+  return(string)
+}
+
+pad_huc_ids <- function(dt, col_name, len){
+  id_num <- as.numeric(dt[, col_name])
+  res <- formatC(id_num, width = len, digits = 0, format = "f", flag = "0")
+  dt[,col_name] <- as.character(res)
+  dt
 }
