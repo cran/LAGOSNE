@@ -15,7 +15,11 @@ lagosne_load <- memoise::memoise(function(version = NULL,
                                           fpath = NA){
   if(is.null(version)){
     version <- lagosne_version()
-    message(paste0("Loading LAGOSNE version: ", version))
+    if(interactive()){
+      message(paste0("Loading LAGOSNE version: ", version))
+    }else{
+      warning(paste0("LAGOSNE version unspecified, loading version: ", version))
+    }
   }
 
   if(!is.na(fpath)){
@@ -27,11 +31,9 @@ lagosne_load <- memoise::memoise(function(version = NULL,
   }
 })
 
-#' Load depth data
-#'
 #' Load depth data from Oliver et al. 2015.
 #'
-#' #' @format A data frame with 50607 observations of 8 variables:
+#' @format A data frame with 50607 observations of 8 variables:
 #' \itemize{
 #'        \item lagoslakeid: unique identifier for each lake in LAGOS-NE.
 #'             For each row of data in this table, the lagoslakeid identifies the focal lake
@@ -65,6 +67,33 @@ lagos_load_oliver_2015 <- function(fpath = NA){
 
   if(is.na(fpath)){
     read.csv(paste0(destdir, .Platform$file.sep, "oliver_2015_depth.csv"),
+             stringsAsFactors = FALSE)
+  }else{
+    read.csv(fpath, stringsAsFactors = FALSE)
+  }
+}
+
+#' Load LAGOSNE snapshot from Collins et al. 2017.
+#'
+#' @export
+#' @param fpath file.path optionally specify custom location of csv data file
+#' @importFrom utils read.csv
+#' @importFrom rappdirs user_data_dir
+#'
+#' @references Collins S., S. Oliver, J. Lapierre, E. Stanley, J. Jones,
+#'  T. Wagner, P. Soranno. 2016. LAGOS - Lake nitrogen, phosphorus,
+#'  stoichiometry, and geospatial data for a 17-state region of the U.S..
+#'  Environmental Data Initiative.
+#'  doi:10.6073/pasta/3abb4a56e76a52a12a366a338fc07dd8.
+#' @examples \dontrun{
+#' lg <- lagos_load_collins_2017()
+#' }
+lagos_load_collins_2017 <- function(fpath = NA){
+  destdir <- rappdirs::user_data_dir("LAGOSNE")
+  dir.create(destdir, showWarnings = FALSE)
+
+  if(is.na(fpath)){
+    read.csv(paste0(destdir, .Platform$file.sep, "collins_2017.csv"),
              stringsAsFactors = FALSE)
   }else{
     read.csv(fpath, stringsAsFactors = FALSE)

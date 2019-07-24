@@ -7,11 +7,12 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Samantha Oliver and Joseph Stachelek" />
 
-<meta name="date" content="2019-01-22" />
+<meta name="date" content="2019-07-23" />
 
 <title>The Structure of LAGOSNE</title>
 
@@ -256,9 +257,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -289,8 +288,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -348,20 +345,17 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -371,8 +365,8 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">The Structure of LAGOSNE</h1>
-<h4 class="author"><em>Samantha Oliver and Joseph Stachelek</em></h4>
-<h4 class="date"><em>2019-01-22</em></h4>
+<h4 class="author">Samantha Oliver and Joseph Stachelek</h4>
+<h4 class="date">2019-07-23</h4>
 
 </div>
 
@@ -405,8 +399,8 @@ dt &lt;- lagosne_load()</code></pre>
 ## [25] &quot;state.chag&quot;           &quot;state.conn&quot;           &quot;state.lulc&quot;          
 ## [28] &quot;buffer100m&quot;           &quot;buffer100m.lulc&quot;      &quot;buffer500m&quot;          
 ## [31] &quot;buffer500m.conn&quot;      &quot;buffer500m.lulc&quot;      &quot;lakes.geo&quot;           
-## [34] &quot;epi_nutr&quot;             &quot;lakes_limno&quot;          &quot;secchi&quot;              
-## [37] &quot;lagos_source_program&quot; &quot;locus&quot;</code></pre>
+## [34] &quot;epi_nutr&quot;             &quot;lakes_limno&quot;          &quot;lagos_source_program&quot;
+## [37] &quot;locus&quot;</code></pre>
 <pre class="r"><code>help.search(&quot;datasets&quot;, package = &quot;LAGOSNE&quot;)</code></pre>
 <table>
 <thead>
@@ -420,7 +414,7 @@ dt &lt;- lagosne_load()</code></pre>
 <tr class="odd">
 <td align="left">LAGOSNE</td>
 <td align="left">chag</td>
-<td align="left">CHAG Datasets</td>
+<td align="left">Climate, Hydrology, Atmospheric, and Geologic (CHAG) Datasets</td>
 </tr>
 <tr class="even">
 <td align="left">LAGOSNE</td>
@@ -469,11 +463,6 @@ dt &lt;- lagosne_load()</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">LAGOSNE</td>
-<td align="left">secchi</td>
-<td align="left">Secchi (Water Clarity) Data</td>
-</tr>
-<tr class="even">
-<td align="left">LAGOSNE</td>
 <td align="left">source</td>
 <td align="left">LAGOSNE sources</td>
 </tr>
@@ -486,13 +475,12 @@ dt &lt;- lagosne_load()</code></pre>
 <p>includes the following tables:</p>
 <ul>
 <li><p>epi_nutr</p></li>
-<li><p>secchi</p></li>
 <li><p>lakes_limno</p></li>
 <li><p>lagos_source_program</p></li>
 </ul>
 </blockquote>
-<p>LAGOSlimno is an integration of preexisting water quality data from disparate sources, including state, federal, tribal, and university organizations. Water chemistry (various species of nitrogen, phosphorus, and carbon) and transparency (Secchi disk measurement) are the main features of the <code>epi_nutr</code> table, but also include metadata about those measurements. <code>?epi_nutr</code> gives the names of all variables and metadata (including units). Because many unique sampling events only included Secchi depth, a separate table of all Secchi measurements is included (see <code>?secchi</code>). <code>epi_nutr</code> does contain Secchi observations that are in <code>secchi</code>, but only if additional water quality measurements were taken during the same sampling event.</p>
-<p>Each observation of LAGOSlimno is a discrete sampling event, where one or more water quality parameters were measured. Sampling events are tied to lakes that have a unique LAGOSNE and National Hydrography Dataset (NHD) identifier, and lakes can have single or multiple obervations of each parameter. There are 12,934 and 12,712 unique lakes in <code>epi_nutr</code> and <code>secchi</code>, respectively, distributed across the 17-state region.</p>
+<p>LAGOSlimno is an integration of preexisting water quality data from disparate sources, including state, federal, tribal, and university organizations. Water chemistry (various species of nitrogen, phosphorus, and carbon) and transparency (Secchi disk measurement) are the main features of the <code>epi_nutr</code> table, but also include metadata about those measurements. <code>?epi_nutr</code> gives the names of all variables and metadata (including units).</p>
+<p>Each observation of LAGOSlimno is a discrete sampling event, where one or more water quality parameters were measured. Sampling events are tied to lakes that have a unique LAGOSNE and National Hydrography Dataset (NHD) identifier, and lakes can have single or multiple obervations of each parameter. There are 14,657 unique lakes in <code>epi_nutr</code> distributed across the 17-state region.</p>
 </div>
 <div id="lagosgeo" class="section level3">
 <h3>LAGOSgeo<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h3>
@@ -506,7 +494,7 @@ dt &lt;- lagosne_load()</code></pre>
 <li><p>lakes.geo</p></li>
 </ul>
 </blockquote>
-<p>LAGOSgeo is an integration of information describing the air, water, and land (hereafter, ecological context) surrounding all lakes greater than or equal to 4 hectares in surface area in the LAGOSNE 17-state region. LAGOSgeo contains three themes of data that describe the ecological context of each lake: CHAG (climate, hyrology, atmospheric deposition, and surficial geology), CONN (stream, wetland, and lake surficial hydrologic connectivity), and LULC (land use/land cover). Some of these metrics have temporal coverage (e.g., atmospheric deposition) whereas others represent average conditions over a period of time (e.g., 30-year climate normals). The source data and metric derivation for</p>
+<p>LAGOSgeo is an integration of information describing the air, water, and land (hereafter, ecological context) surrounding all lakes greater than or equal to 4 hectares in surface area in the LAGOSNE 17-state region. LAGOSgeo contains three themes of data that describe the ecological context of each lake: CHAG (climate, hydrology, atmospheric deposition, and surficial geology), CONN (stream, wetland, and lake surficial hydrologic connectivity), and LULC (land use/land cover). Some of these metrics have temporal coverage (e.g., atmospheric deposition) whereas others represent average conditions over a period of time (e.g., 30-year climate normals). The source data and metric derivation for</p>
 <p>Each theme of LAGOSgeo was calculated at one or more of the nine spatial classifications (see <code>?classifications</code>). The table names of each classification-theme combination are formatted as [classification].[theme] (e.g., state.chag, hu4.conn, iws.lulc). Each theme and table within LAGOSgeo is connected to a help file and can be viewed by calling either the theme or table name (e.g., <code>?state.chag</code> or <code>?chag</code>).</p>
 <div id="spatial-classifications-layers" class="section level4">
 <h4>Spatial Classifications Layers</h4>
@@ -572,6 +560,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -10,13 +10,18 @@
 #' @param version character LAGOSNE database version string
 #' @param overwrite logical overwrite existing data for the specified version
 #' @examples \dontrun{
-#' lagosne_get()
+#' # default to latest version
+#' lagosne_get(dest_folder = LAGOSNE:::lagos_path())
+#'
+#' # get specific version
+#' # - recommended to install corresponding package version
+#' # - See README
 #' }
 lagosne_get <- function(version = lagosne_version(), overwrite = FALSE,
                         dest_folder = tempdir()){
 
   if(dest_folder != lagos_path()){
-    message("Set dest_folder to LAGOSNE:::lagos_path() so that data persists
+    warning("Set dest_folder to LAGOSNE:::lagos_path() so that data persists
 between R sessions. \n")
   }
 
@@ -30,16 +35,19 @@ between R sessions. \n")
     edi_baseurl   <- "https://portal.edirepository.org/nis/dataviewer?packageid="
     pasta_baseurl <- "http://pasta.lternet.edu/package/data/eml/edi/"
 
+    message("Downloading the 'locus' module ...")
     locus_base_edi   <- paste0(edi_baseurl, c("edi.100.4"))
     locus_base_pasta <- paste0(pasta_baseurl, "100/4")
     locus_dir        <- get_lagos_module(locus_base_edi, locus_base_pasta,
                                          "locus", overwrite)
 
-    limno_base_edi   <- paste0(edi_baseurl, c("edi.101.2"))
-    limno_base_pasta <- paste0(pasta_baseurl, "101/2")
+    message("Downloading the 'limno' module ...")
+    limno_base_edi   <- paste0(edi_baseurl, c("edi.101.3"))
+    limno_base_pasta <- paste0(pasta_baseurl, "101/3")
     limno_dir        <- get_lagos_module(limno_base_edi, limno_base_pasta,
                                          "limno", overwrite)
 
+    message("Downloading the 'geo' module ...")
     geo_base_edi   <- paste0(edi_baseurl, c("edi.99.5"))
     geo_base_pasta <- paste0(pasta_baseurl, "99/5")
     geo_dir        <- get_lagos_module(geo_base_edi, geo_base_pasta,
@@ -61,8 +69,6 @@ between R sessions. \n")
                         geo_folder   = geo_dir)))
 }
 
-#' Get depth data
-#'
 #' Get depth data from Oliver et al. 2015
 #'
 #' @export
@@ -84,4 +90,28 @@ lagos_get_oliver_2015 <- function(dest_folder, overwrite = FALSE){
                     "knb-lter-ntl/320/4/4a283c25f3548c0f78d8a01658e4a353")
 
   get_if_not_exists(baseurl, paste0(lagos_path(), "oliver_2015_depth.csv"), overwrite = overwrite)
+}
+
+#' Get LAGOSNE snapshot from Collins et al. 2017
+#'
+#' @export
+#' @param dest_folder file.path not implemented yet
+#' @param overwrite logical overwrite existing data?
+#' @references Collins S., S. Oliver, J. Lapierre, E. Stanley, J. Jones,
+#'  T. Wagner, P. Soranno. 2016. LAGOS - Lake nitrogen, phosphorus,
+#'  stoichiometry, and geospatial data for a 17-state region of the U.S..
+#'  Environmental Data Initiative.
+#'  doi:10.6073/pasta/3abb4a56e76a52a12a366a338fc07dd8.
+#'
+#' @examples \dontrun{
+#' lagos_get_collins_2017()
+#' }
+lagos_get_collins_2017 <- function(dest_folder, overwrite = FALSE){
+  dir.create(lagos_path(), showWarnings = FALSE)
+
+  baseurl <- paste0("http://pasta.lternet.edu/package/data/eml/",
+                    "knb-lter-ntl/332/5/d9e3a388e566a2428a93b982a000e2c4")
+
+  get_if_not_exists(baseurl, paste0(lagos_path(), "collins_2017.csv"),
+                    overwrite = overwrite)
 }

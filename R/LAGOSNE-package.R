@@ -12,7 +12,7 @@ NULL
 #' @export
 #' @examples
 #' lagosne_version()
-lagosne_version <- function(){"1.087.1"}
+lagosne_version <- function(){"1.087.3"}
 
 #' LAGOSNE Spatial Classifications Metadata
 #'
@@ -130,7 +130,7 @@ lagosne_version <- function(){"1.087.1"}
 #' @name classifications
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 #' @aliases buffer100m buffer500m iws hu12 hu8 hu4 edu county state classification scales lakeareaha
-#' @seealso \code{\link[LAGOSNE]{conn}} \code{\link{chag}} \code{\link{lulc}}
+#' @seealso \code{\link[LAGOSNE]{conn}} \code{\link[LAGOSNE]{lakes.geo}} \code{\link{chag}} \code{\link{lulc}}
 NULL
 
 #' Land Use Land Cover (LULC) Data Frames
@@ -223,10 +223,11 @@ NULL
 #' @keywords datasets
 #' @name lulc
 #' @aliases buffer100m.lulc buffer500m.lulc iws.lulc hu12.lulc hu8.lulc hu4.lulc edu.lulc county.lulc state.lulc topography nlcd
+#' @seealso \code{\link[LAGOSNE]{lakes.geo}}
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12};
 NULL
 
-#' CHAG Datasets
+#' Climate, Hydrology, Atmospheric, and Geologic (CHAG) Datasets
 #'
 #' Datasets containing information on climate, hydrology, atmospheric
 #' deposition, and surficial geology characteristics calculated at hu12, hu8,
@@ -326,7 +327,7 @@ NULL
 #' (surface waters).
 #' Each row is a sampling event, and lakes can have multiple sampling events.
 #'
-#' @format A data frame with 289482 observations of 93 variables:
+#' @format A data frame with observations of 93 variables:
 #' \itemize{
 #'             \item eventida1087: unique combination of programid, lakeid, and
 #'             date for each sampling event in LAGOSNE
@@ -362,9 +363,7 @@ NULL
 #'             \item toc: carbon, total organic (µg/l as C)
 #'             \item ton: nitrogen, total organic (µg/l as N)
 #'             \item tp: phosphorus, total (µg/l as P)
-#'             \item secchi: Secchi disk transparency (m). More secchi data
-#'             from additional lakes is available from the \link[LAGOSNE]{secchi}
-#'             table.
+#'             \item secchi: Secchi disk transparency (m).
 #'             \item *_qual: data flags (qualifiers) from the source program
 #'             for each water quality parameter (* = all water quality
 #'             parameters listed above). For example, "chla_qual" is the
@@ -418,7 +417,7 @@ NULL
 #' @docType data
 #' @keywords datasets
 #' @name epi_nutr
-#' @aliases nutrients chla colora doc phosphorus nitrogen chlorophyll waterquality censorcode qualifiers detectionlimit
+#' @aliases nutrients chla colora doc phosphorus nitrogen chlorophyll waterquality censorcode qualifiers detectionlimit secchi
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
@@ -427,7 +426,7 @@ NULL
 #' A dataset containing depth and names for lakes included in the limno
 #' module.
 #'
-#' @format A data frame with 141265 observations of 8 variables:
+#' @format A data frame with observations of 8 variables:
 #' \itemize{
 #'             \item lagoslakeid:	    unique lake identifier developed for
 #'             LAGOS-NE
@@ -450,6 +449,7 @@ NULL
 #' @keywords datasets
 #' @name lakes_limno
 #' @aliases meandepth maxdepth legacyid depth
+#' @seealso \code{\link[LAGOSNE]{lakes.geo}}
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
@@ -494,6 +494,7 @@ NULL
 #' @keywords datasets
 #' @name locus
 #' @aliases location
+#' @seealso \code{\link[LAGOSNE]{lakes.geo}}
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
@@ -783,6 +784,7 @@ NULL
 #' @keywords datasets
 #' @name conn
 #' @aliases connectivity buffer500m.conn iws.conn hu12.conn hu8.conn hu4.conn edu.conn county.conn state.conn
+#' @seealso \code{\link[LAGOSNE]{lakes.geo}}
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
@@ -862,49 +864,11 @@ NULL
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
 
-#' Secchi (Water Clarity) Data
-#'
-#' A dataset containing Secchi disk measurements from lakes.
-#'
-#' There is some overlap between the Secchi values reported in table 'secchi'
-#' and table 'epi_nutr'. The 'epi_nutr' table only contains Secchi observations
-#' when there were additional nutrient data collected at the same time.
-#'
-#' @format A data frame with 913319 observations of 12 variables:
-#' \itemize{
-#'      \item eventida1087: unique combination of programid, lakeid, and date
-#'      for each sampling event
-#'      \item lagoslakeid: unique LAGOSNE lake identifier
-#'      \item programname: name of the sampling/monitoring program that
-#'      collected the data
-#'      \item programtype: categorical description of the type of sampling
-#'      /monitoring effort
-#'      \item lagosversion: current version of LAGOSNE that the data record
-#'      belongs to
-#'      \item sampledate: date at which the sample was collected, stored in date format (YYYY-MM-DD)
-#'      \item secchi: Secchi depth in meters
-#'      \item secchi_censorcode: identifies whether a Secchi value is censored
-#'      and the censor type
-#'      \item secchi_qual: data flags from the source program
-#'      \item secchi_methodinfo: flag to indicate variables that were sampled
-#'      using different methods. "SECCHI_VIEW" =
-#'      viewing box used to measure Secchi depth, "SECCHI_VIEW_UNKNOWN" =
-#'      unknown whether viewing box was used, "NA" = no viewing
-#'      box used to measure Secchi depth.
-#'      \item sampleyear: year (4-digit) of sampling event
-#'      \item samplemonth: month (1 through 12) of sampling event
-#'      }
-#' @docType data
-#' @keywords datasets
-#' @name secchi
-#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
-NULL
-
 #' LAGOSNE sources
 #'
 #' A dataset identifying the sources of limnological data in LAGOSNE.
 #'
-#' @format A data frame with 87 observations of 19 variables:
+#' @format A data frame with observations of 19 variables:
 #' \itemize{
 #'      \item programid: unique LAGOSNE program identifier
 #'      \item programname: name of the sampling/monitoring program that
@@ -934,22 +898,3 @@ NULL
 #' @aliases programs lagos.source.programs source.programs lagos.source lagos_source_program
 #' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
 NULL
-
-#' LAGOSNE subset
-#'
-#' A dataset with the first two rows of many of the LAGOSNE tables
-#'
-#' @docType data
-#' @keywords datasets
-#' @name lg_subset
-#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
-"lg_subset"
-
-#' LAGOSNE extent
-#'
-#' A simple features polygons representing the geographical extent of the LAGOSNE dataset
-#' @docType data
-#' @keywords datasets
-#' @name lg_extent
-#' @references Soranno et al. (2017) \href{https://doi.org/10.1093/gigascience/gix101}{Gigascience 6:12}
-"lg_extent"

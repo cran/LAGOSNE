@@ -1,8 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="https://raw.githubusercontent.com/cont-limno/LAGOSNE/master/inst/lagos_banner2.png" width="100%" />
-
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
@@ -12,9 +10,20 @@ Status](https://travis-ci.org/cont-limno/LAGOSNE.svg?branch=master)](https://tra
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
 
-The `LAGOSNE` package provides an R interface to download LAGOS-NE data
-from remote databases, store this data locally, and perform a variety of
-filtering and subsetting operations.
+# LAGOSNE <img src="man/figures/logo.png" align="right" height=140/>
+
+The `LAGOSNE` package provides an R interface to download LAGOS-NE data,
+store this data locally, and perform a variety of filtering and
+subsetting operations.
+
+LAGOS-NE contains data for 51,101 lakes and reservoirs larger than 4 ha
+in 17 lake-rich US states. The database includes 3 data modules for:
+lake location and physical characteristics for all lakes; ecological
+context (i.e., the land use, geologic, climatic, and hydrologic setting
+of lakes) for all lakes; and in situ measurements of lake water quality
+for a subset of the lakes from the past 3 decades for approximately
+2,600-12,000 lakes depending on the variable (see Soranno et al. 2017
+[below](https://github.com/cont-limno/LAGOSNE#references)).
 
 ## Installation
 
@@ -33,18 +42,18 @@ The `lagosne_get` function downloads the LAGOSNE files corresponding to
 the specified version from the [EDI data
 repository](https://portal.edirepository.org/nis/home.jsp). Files are
 stored in a temporary directory before being “compiled” to an `R` data
-format in the location returned by `rappdirs::user_data_dir()`. Data
-only needs to be downloaded one time per version per machine. Each
-`LAGOSNE`
+format in the location specified by the `dest_folder` argument.
+Recommended setting is `lagos_path()`. Data only needs to be downloaded
+one time per version per machine. Each `LAGOSNE`
 [module](https://cont-limno.github.io/LAGOSNE/articles/lagosne_structure.html)
 has a unique version number. However, only the limno module has been
 dynamically updated. Therefore the `LAGOSNE` `R` package uses the limno
 module version number to check-out specific datasets. **The latest
-version of the `LAGOSNE` dataset is 1.087.1.**
+version of the `LAGOSNE` dataset is 1.087.3.**
 
 ``` r
 library(LAGOSNE)
-lagosne_get()
+lagosne_get(dest_folder = lagos_path())
 ```
 
 ## Usage
@@ -77,8 +86,8 @@ names(dt)
     #> [25] "state.chag"           "state.conn"           "state.lulc"          
     #> [28] "buffer100m"           "buffer100m.lulc"      "buffer500m"          
     #> [31] "buffer500m.conn"      "buffer500m.lulc"      "lakes.geo"           
-    #> [34] "epi_nutr"             "lakes_limno"          "secchi"              
-    #> [37] "lagos_source_program" "locus"
+    #> [34] "epi_nutr"             "lakes_limno"          "lagos_source_program"
+    #> [37] "locus"
 
 #### Locate tables containing a variable
 
@@ -86,7 +95,7 @@ names(dt)
 query_lagos_names("secchi")
 ```
 
-    #> [1] "epi_nutr" "secchi"
+    #> [1] "epi_nutr"
 
 #### Preview a table
 
@@ -108,18 +117,18 @@ lake_info(name = "Pine Lake", state = "Iowa")
 # lake_info(lagoslakeid = 4389)
 ```
 
-    #>   lagoslakeid     nhdid      lagosname1 meandepth meandepthsource maxdepth
-    #> 2        4510 155845265 UPPER PINE LAKE      2.21    IA_CHEMISTRY     4.88
-    #>   maxdepthsource legacyid gnis_name  nhd_lat  nhd_long lake_area_ha
-    #> 2   IA_CHEMISTRY      122 Pine Lake 42.37833 -93.05967     36.07355
+    #>   lagoslakeid     nhdid  nhd_lat  nhd_long      lagosname1 meandepth
+    #> 1        4510 155845265 42.37833 -93.05967 UPPER PINE LAKE      2.21
+    #>   meandepthsource maxdepth maxdepthsource legacyid gnis_name lake_area_ha
+    #> 1    IA_CHEMISTRY     4.88   IA_CHEMISTRY      122 Pine Lake     36.07355
     #>   lake_perim_meters nhd_fcode nhd_ftype iws_zoneid hu4_zoneid hu6_zoneid
-    #> 2          5671.001     39004       390  IWS_51040     HU4_57     HU6_78
+    #> 1          5671.001     39004       390  IWS_51040     HU4_57     HU6_78
     #>   hu8_zoneid hu12_zoneid edu_zoneid county_zoneid state_zoneid elevation_m
-    #> 2    HU8_400   HU12_3008     EDU_23    County_275     State_13      300.23
+    #> 1    HU8_400   HU12_3008     EDU_23    County_275     State_13      300.23
     #>   state state_name state_lat state_long state_pct_in_nwi state_ha_in_nwi
-    #> 2    IA       Iowa  42.07456  -93.49983              100        14573561
+    #> 1    IA       Iowa  42.07456  -93.49983              100        14573561
     #>   state_ha lakeconnection   iws_ha
-    #> 2 14573561      DR_Stream 3593.379
+    #> 1 14573561      DR_Stream 3593.379
 
 #### Read table metadata
 
@@ -127,20 +136,19 @@ lake_info(name = "Pine Lake", state = "Iowa")
 help.search("datasets", package = "LAGOSNE")
 ```
 
-| Package | Topic           | Title                                    |
-| :------ | :-------------- | :--------------------------------------- |
-| LAGOSNE | chag            | CHAG Datasets                            |
-| LAGOSNE | classifications | LAGOSNE Spatial Classifications Metadata |
-| LAGOSNE | conn            | Connectivity Datasets                    |
-| LAGOSNE | epi\_nutr       | Epilimnion Water Quality Data            |
-| LAGOSNE | lagoslakes      | Lake Geospatial Metadata                 |
-| LAGOSNE | lakes\_limno    | Metadata for Lakes with Water Quality    |
-| LAGOSNE | lg\_extent      | LAGOSNE extent                           |
-| LAGOSNE | lg\_subset      | LAGOSNE subset                           |
-| LAGOSNE | locus           | Metadata for all lakes \> 1ha            |
-| LAGOSNE | lulc            | Land Use Land Cover (LULC) Data Frames   |
-| LAGOSNE | secchi          | Secchi (Water Clarity) Data              |
-| LAGOSNE | source          | LAGOSNE sources                          |
+| Package | Topic           | Title                                                         |
+| :------ | :-------------- | :------------------------------------------------------------ |
+| LAGOSNE | chag            | Climate, Hydrology, Atmospheric, and Geologic (CHAG) Datasets |
+| LAGOSNE | classifications | LAGOSNE Spatial Classifications Metadata                      |
+| LAGOSNE | conn            | Connectivity Datasets                                         |
+| LAGOSNE | epi\_nutr       | Epilimnion Water Quality Data                                 |
+| LAGOSNE | lagoslakes      | Lake Geospatial Metadata                                      |
+| LAGOSNE | lakes\_limno    | Metadata for Lakes with Water Quality                         |
+| LAGOSNE | lg\_extent      | LAGOSNE extent                                                |
+| LAGOSNE | lg\_subset      | LAGOSNE subset                                                |
+| LAGOSNE | locus           | Metadata for all lakes \> 1ha                                 |
+| LAGOSNE | lulc            | Land Use Land Cover (LULC) Data Frames                        |
+| LAGOSNE | source          | LAGOSNE sources                                               |
 
 ### Select data
 
@@ -155,7 +163,7 @@ tutorial on generic `data.frame` subsetting.
 # specific variables
 head(lagosne_select(table = "epi_nutr", vars = c("tp", "tn"), dt = dt))
 #>       tp     tn
-#> 1  24.00     NA
+#> 1  29.00     NA
 #> 2 136.56 3521.7
 head(lagosne_select(table = "iws.lulc", vars = c("iws_nlcd2011_pct_95"), dt = dt))
 #>   iws_nlcd2011_pct_95
@@ -171,10 +179,10 @@ head(lagosne_select(table = "locus", categories = "id", dt = dt))
 #> 2     EDU_23    County_275     State_13
 head(lagosne_select(table = "epi_nutr", categories = "waterquality", dt = dt))
 #>    chla colora colort dkn doc nh4 no2 no2no3 srp tdn tdp tkn     tn toc
-#> 1 62.00     40     NA  NA  NA  NA  NA     NA  NA  NA  NA  NA     NA  NA
+#> 1 16.60     60     NA  NA  NA  NA  NA     NA  NA  NA  NA  NA     NA  NA
 #> 2 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA  NA  NA  NA 3521.7  NA
 #>   ton     tp secchi
-#> 1  NA  24.00   2.10
+#> 1  NA  29.00   1.70
 #> 2  NA 136.56   0.65
 head(lagosne_select(table = "hu4.chag", categories = "deposition", dt = dt)[,1:4])
 #>   hu4_dep_no3_1985_min hu4_dep_no3_1985_max hu4_dep_no3_1985_mean
@@ -187,12 +195,12 @@ head(lagosne_select(table = "hu4.chag", categories = "deposition", dt = dt)[,1:4
 # mix of specific variables and categories
 head(lagosne_select(table = "epi_nutr", vars = "programname", 
                     categories = c("id", "waterquality"), dt = dt))
-#>    programname lagoslakeid  chla colora colort dkn doc nh4 no2 no2no3 srp
-#> 1  MA_DEP_CHEM        3201 62.00     40     NA  NA  NA  NA  NA     NA  NA
-#> 2 IA_CHEMISTRY        4510 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA
-#>   tdn tdp tkn     tn toc ton     tp secchi eventida1087
-#> 1  NA  NA  NA     NA  NA  NA  24.00   2.10        70686
-#> 2  NA  NA  NA 3521.7  NA  NA 136.56   0.65       100949
+#>   programname lagoslakeid  chla colora colort dkn doc nh4 no2 no2no3 srp
+#> 1      MA_DEP        3201 16.60     60     NA  NA  NA  NA  NA     NA  NA
+#> 2     IA_CHEM        4510 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA
+#>   tdn tdp tkn     tn toc ton     tp secchi eventida10873
+#> 1  NA  NA  NA     NA  NA  NA  29.00   1.70         45773
+#> 2  NA  NA  NA 3521.7  NA  NA 136.56   0.65         64904
 ```
 
 ## Published LAGOSNE subsets
@@ -201,6 +209,10 @@ head(lagosne_select(table = "epi_nutr", vars = "programname",
 # Oliver et al. 2015
 lagos_get_oliver_2015()
 head(lagos_load_oliver_2015())
+
+# Collins et al. 2017
+lagos_get_collins_2017()
+head(lagos_load_collins_2017())
 ```
 
 ## Legacy Versions
@@ -209,31 +221,12 @@ head(lagos_load_oliver_2015())
 
 To install versions of `LAGOSNE` compatible with older versions of
 LAGOS-NE run the following command where `ref` is set to the desired
-version (in the example, it is version 1.054.1):
+version (in the example, it is version 1.087.1):
 
 ``` r
 # install devtools if not found
 # install.packages("devtools")
-devtools::install_github("cont-limno/LAGOSNE", ref = "v1.054.1")
-```
-
-### Data
-
-Until older datasets have been made available in a public repository,
-LAGOSNE users will need to use the `lagosne_compile` function (not
-`lagosne_get`) and supply the path to their local `locus`, `limno` and
-`geo` data folders. Replace the paths in the example below with the path
-to each respective folder on your system. Most people will have access
-to these folders through Dropbox. For example, the `limno_folder` would
-be assigned to something like:
-`C:/Users/FWL/Dropbox/CSI_LAGOS-exports/LAGOS-NE-LIMNO-EXPORT`
-
-``` r
-library(LAGOSNE)
-lagosne_compile("1.054.1", format = "rds",
-  limno_folder = "~/Downloads/LAGOS-NE-LIMNO-EXPORT",
-  geo_folder   = "~/Downloads/LAGOS-NE-GEO-EXPORT",
-  locus_folder = "~/Downloads/LAGOS-NE-LOCUS-EXPORT")
+devtools::install_github("cont-limno/LAGOSNE", ref = "v1.087.1")
 ```
 
 ## References

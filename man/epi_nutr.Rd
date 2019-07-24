@@ -14,8 +14,9 @@
 \alias{censorcode}
 \alias{qualifiers}
 \alias{detectionlimit}
+\alias{secchi}
 \title{Epilimnion Water Quality Data}
-\format{A data frame with 289482 observations of 93 variables:
+\format{A data frame with observations of 93 variables:
 \itemize{
             \item eventida1087: unique combination of programid, lakeid, and
             date for each sampling event in LAGOSNE
@@ -51,9 +52,7 @@
             \item toc: carbon, total organic (µg/l as C)
             \item ton: nitrogen, total organic (µg/l as N)
             \item tp: phosphorus, total (µg/l as P)
-            \item secchi: Secchi disk transparency (m). More secchi data
-            from additional lakes is available from the \link[LAGOSNE]{secchi}
-            table.
+            \item secchi: Secchi disk transparency (m).
             \item *_qual: data flags (qualifiers) from the source program
             for each water quality parameter (* = all water quality
             parameters listed above). For example, "chla_qual" is the

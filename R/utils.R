@@ -9,10 +9,10 @@
 #' @return data.frame
 load_lagos_txt <- function(file_name, sep = "\t", ...){
 
-  read.table(file_name, header = TRUE, sep = sep, quote = "\"",
+  suppressWarnings(
+    read.table(file_name, header = TRUE, sep = sep, quote = "\"",
              dec = ".", strip.white = TRUE, comment.char = "",
-             stringsAsFactors = FALSE)
-
+             stringsAsFactors = FALSE))
 }
 
 #' Summarize all LAGOSNE flat files
@@ -97,9 +97,10 @@ info_table <- function(lg){
 
 }
 
+#' @importFrom curl curl_download
 get_if_not_exists <- function(url, destfile, overwrite){
   if(!file.exists(destfile) | overwrite){
-    download.file(url, destfile)
+    curl::curl_download(url, destfile)
   }else{
     message(paste0("A local copy of ", url, " already exists on disk"))
   }
@@ -111,6 +112,10 @@ stop_if_not_exists <- function(src_path) {
   }
 }
 
+#' lagos_path
+#'
+#' Return the cross-platform data path designated for LAGOSNE.
+#' @export
 lagos_path <- function() paste0(rappdirs::user_data_dir(appname = "LAGOSNE",
                 appauthor = "LAGOSNE"), .Platform$file.sep)
 
@@ -224,10 +229,13 @@ get_file_names <- function(url){
 }
 
 get_lagos_module <- function(edi_url, pasta_url, folder_name, overwrite){
+
   files <- suppressWarnings(paste0(edi_url, "&entityid=",
                             readLines(pasta_url)))
-
   file_names <- sapply(files, get_file_names)
+
+  files      <- files[!is.na(file_names)]
+  file_names <- file_names[!is.na(file_names)]
 
   local_dir   <- file.path(tempdir(), folder_name)
   dir.create(local_dir, showWarnings = FALSE)
@@ -235,7 +243,10 @@ get_lagos_module <- function(edi_url, pasta_url, folder_name, overwrite){
   file_paths <- file.path(local_dir, file_names)
 
   invisible(lapply(seq_len(length(files)),
-    function(i) get_if_not_exists(files[i], file_paths[i], overwrite)))
+    function(i){
+      message(paste0("Downloading ", file_names[i], " ..."))
+      get_if_not_exists(files[i], file_paths[i], overwrite)
+      }))
 
   local_dir
 }
@@ -252,4 +263,108 @@ pad_huc_ids <- function(dt, col_name, len){
   res <- formatC(id_num, width = len, digits = 0, format = "f", flag = "0")
   dt[,col_name] <- as.character(res)
   dt
+}
+
+format_nonscientific <- function(x){
+  if(is.na(as.numeric(x))){
+    x
+  }else{
+    trimws(
+      format(
+        as.numeric(x), scientific = FALSE, drop0trailing = TRUE)
+    )
+  }
+}
+
+tidy_name_prefixes <- function(nms){
+
+  prefixes_key <- data.frame(prefix      = c("hu4_", "iws_", "state_",
+                                             "nhd_", "hu8_", "hu12_",
+                                             "edu_", "county_", "hu6_",
+                                             "^lakes_",
+                                             "tp_", "toc_", "tn_", "tkn_",
+                                             "tdp_", "tdn_", "srp_",
+                                             "secchi_", "no2no3_", "no2_",
+                                             "nh4_", "doc_", "dkn_", "colort_",
+                                             "colora_", "chla_", "ton_"),
+                             stringsAsFactors = FALSE)
+  prefixes_key$replacement <- rep("", nrow(prefixes_key))
+
+  prefix_matches <- list()
+  for(i in seq_along(prefixes_key$prefix)){
+    prefix_matches[[i]] <- stringr::str_which(
+      nms$raw, prefixes_key$prefix[i])
+  }
+
+  prefix_matches <- tidyr::unnest(tibble::enframe(prefix_matches))
+  prefix_matches <- apply(prefix_matches, 1, function(x)
+    c(nms$raw[x[2]], prefixes_key$prefix[x[1]]))
+  prefix_matches <- data.frame(t(prefix_matches), stringsAsFactors = FALSE)
+
+  if(nrow(prefix_matches) != 0 & ncol(prefix_matches) != 0){
+    names(prefix_matches) <- c("raw", "prefix")
+    nms <- merge(nms, prefix_matches, all.x = TRUE)
+  }
+
+  for(i in seq_along(nms$formatted[!is.na(nms$prefix)])){
+    nms$formatted[!is.na(nms$prefix)][i] <-
+      gsub(
+        nms$prefix[!is.na(nms$prefix)][i], "",
+        nms$raw[!is.na(nms$prefix)][i])
+  }
+  nms$formatted[is.na(nms$formatted)] <- nms$raw[is.na(nms$formatted)]
+
+  nms
+}
+
+key_names <- function(nms){
+  # match cleaned names to a key
+  name_key <- data.frame(formatted  = c("ha", "perimkm",
+                                        "maxdepth", "lake_perim_meters",
+                                        "lakeareaha", "samplemonth",
+                                        "sampleyear", "sampledate",
+                                        "meandepth", "zoneid"),
+                         cleaned = c("Area (ha)", "Perimeter (km)",
+                                     "Max Depth", "Perimeter (m)",
+                                     "Lake Area (ha)", "Month",
+                                     "Year", "Date",
+                                     "Mean Depth", "ID"),
+                         stringsAsFactors = FALSE)
+  nms <- merge(nms, name_key, all.x = TRUE)
+
+  nms$formatted[is.na(nms$formatted)] <-
+    nms$raw[is.na(nms$formatted)]
+  nms$cleaned[is.na(nms$cleaned)] <- nms$formatted[is.na(nms$cleaned)]
+
+  nms
+}
+
+tidy_name_suffixes <- function(nms){
+  # match suffixes to a key
+  suffixes_key <- data.frame(raw       = c("_count$", "_ha$", "_km$",
+                                           "_m$", "_pct$", "_mperha$",
+                                           "_pointsperha$", "_pointspersqkm$",
+                                           "_pointcount$"),
+                             formatted = c(" (n)", " (ha)", " (km)",
+                                           " (m)", " (%)", " (n/ha)",
+                                           " (n/ha)", " (n/km2)", " (n)"),
+                             stringsAsFactors = FALSE)
+
+  for(i in seq_along(suffixes_key$raw)){
+    nms$cleaned <- gsub(suffixes_key$raw[i],
+                        suffixes_key$formatted[i],
+                        nms$cleaned, fixed = FALSE)
+  }
+
+  nms
+}
+
+url_exists <- function(url){
+  handle <- curl::new_handle(nobody = TRUE)
+
+  tryCatch(
+    length(curl::parse_headers(
+      curl::curl_fetch_memory(url, handle)$headers)) > 0,
+    error = function(e) FALSE
+  )
 }
