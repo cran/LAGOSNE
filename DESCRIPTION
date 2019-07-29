@@ -1,7 +1,7 @@
 Package: LAGOSNE
 Title: Interface to the Lake Multi-Scaled Geospatial and Temporal
         Database
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: c(
     person("Joseph", "Stachelek", 
     email = "stachel2@msu.edu", 
@@ -29,10 +29,10 @@ RoxygenNote: 6.1.1
 VignetteBuilder: R.rsp, knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2019-07-24 16:50:02 UTC; jose
+Packaged: 2019-07-29 16:53:30 UTC; jose
 Author: Joseph Stachelek [aut, cre] (<https://orcid.org/0000-0002-5924-2464>),
   Samantha Oliver [aut] (<https://orcid.org/0000-0001-5668-1165>),
   Farzan Masrour [aut]
 Maintainer: Joseph Stachelek <stachel2@msu.edu>
 Repository: CRAN
-Date/Publication: 2019-07-24 17:20:02 UTC
+Date/Publication: 2019-07-29 18:30:04 UTC

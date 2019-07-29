@@ -1,12 +1,12 @@
-ee8375e29cb466306513ec33f19fe493 *DESCRIPTION
+3ac1ae998dc4af6a746dfddebb6d4290 *DESCRIPTION
 787dd7ca005a3135f8be25948ce19c01 *NAMESPACE
-090c77683e313d4011df96e5ba888893 *NEWS.md
+4a58dbfbf28b61c830b1a54b26546d2d *NEWS.md
 6b58d40d38872caaf13857b90df51798 *R/LAGOSNE-package.R
 8c61300aab01ba31f67b039be7170353 *R/compile.R
 df4792e168612e69f7c4f39d5a806bd7 *R/coordinates.R
-95650968d9b094eee7eccbfa5aa7f0a7 *R/get.R
+938da97a1734cf0e033cad31c66da341 *R/get.R
 8ca7ff6d16fd2a813caf11913d1703a2 *R/info.R
-b1cea32615f9dc250c163e534dc30572 *R/ingest.R
+ee51ed029c5d5879a0f615eb9643ac43 *R/ingest.R
 783c79f86fe17d487521dad526cd236d *R/keywords.R
 e104e864ff06b96e5a381816276c8ddc *R/load.R
 eccdd136671aa40dca96daafb9de8b82 *R/names.R
@@ -44,7 +44,7 @@ ecca1b8b032a147c527eb3241a6b75e0 *man/lagos_ingest.Rd
 53c8b609a3e00773efff891ecad8acdb *man/lagos_path.Rd
 7e2390bf34eb45cbe0bbf2c4b4b292c1 *man/lagoslakes.Rd
 b90115dcb6b58270e0311793764b7002 *man/lagosne_compile.Rd
-d2a281b0634cb8a0cf36d34ec7be582e *man/lagosne_get.Rd
+0eaa06322043f0b8b149e1ec4f9afdc3 *man/lagosne_get.Rd
 3c91127364e2831876118c745fa2e47a *man/lagosne_load.Rd
 8ceb984308e67b487756cc7ca8175453 *man/lagosne_select.Rd
 dc8b6f0f9c1e47520f9c24db516e8d49 *man/lagosne_version.Rd
@@ -62,7 +62,7 @@ e8133755f2fea34296cbf22a5acd1ce9 *man/source.Rd
 e531a4d03089560441c836780ccf06f0 *tests/testthat/test-coordinates.R
 8056a490deec1bbe2f90612de42033c7 *tests/testthat/test-lagos_get.R
 d9b15d5b69741d4da56089e5d0ab3230 *tests/testthat/test-lagos_ingest.R
-32a40c4db7088f8ea20491a0148c6d9d *tests/testthat/test-lagos_load.R
+dc5179d0ccbfbf516498915f90e9ea17 *tests/testthat/test-lagos_load.R
 806a80dd23171cd490c171cf3080b22f *tests/testthat/test-lagos_select.R
 80c5c82e87071e4b39d9d019ecee27fe *tests/testthat/test-lake_info.R
 386e80427e8693b731ce91ce5b54e9cf *tests/testthat/test-load_lagos_txt.R
