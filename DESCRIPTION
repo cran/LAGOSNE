@@ -1,7 +1,7 @@
 Package: LAGOSNE
 Title: Interface to the Lake Multi-Scaled Geospatial and Temporal
         Database
-Version: 2.0.1
+Version: 2.0.2
 Authors@R: c(
     person("Joseph", "Stachelek", 
     email = "stachel2@msu.edu", 
@@ -20,19 +20,19 @@ Description: Client for programmatic access to the Lake
 Depends: R (>= 3.5.0)
 Imports: dplyr (>= 0.7.0), rappdirs (>= 0.3.1), lazyeval (>= 0.2),
         purrr (>= 0.2.2.2), magrittr (>= 1.5), sf, curl (>= 2.7.0),
-        stringr (>= 1.2.0), tibble, tidyr, memoise, rlang, progress
+        stringr (>= 1.2.0), tibble, tidyr, memoise, rlang, progress, qs
 Suggests: testthat, knitr, rmarkdown, devtools, R.rsp, printr, ggplot2
 License: GPL
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 VignetteBuilder: R.rsp, knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2019-07-29 16:53:30 UTC; jose
+Packaged: 2020-11-28 21:39:44 UTC; julie
 Author: Joseph Stachelek [aut, cre] (<https://orcid.org/0000-0002-5924-2464>),
   Samantha Oliver [aut] (<https://orcid.org/0000-0001-5668-1165>),
   Farzan Masrour [aut]
 Maintainer: Joseph Stachelek <stachel2@msu.edu>
 Repository: CRAN
-Date/Publication: 2019-07-29 18:30:04 UTC
+Date/Publication: 2020-11-29 00:50:02 UTC

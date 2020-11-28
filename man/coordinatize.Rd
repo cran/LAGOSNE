@@ -4,8 +4,7 @@
 \alias{coordinatize}
 \title{Convert a LAGOSNE flat file into a spatial object}
 \usage{
-coordinatize(dt, latname = "nhd_lat", longname = "nhd_long",
-  crs = 4326)
+coordinatize(dt, latname = "nhd_lat", longname = "nhd_long", crs = 4326)
 }
 \arguments{
 \item{dt}{data.frame}
@@ -22,7 +21,7 @@ This function turns a data.frame into a spatial object using a reasonable
 }
 \examples{
 \dontrun{
-dt <- lagos_load("1.087.1")
+dt <- lagosne_load("1.087.3")
 res <- coordinatize(dt$locus)
 
 library(maps)

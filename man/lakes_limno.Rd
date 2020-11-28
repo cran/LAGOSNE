@@ -8,7 +8,8 @@
 \alias{legacyid}
 \alias{depth}
 \title{Metadata for Lakes with Water Quality}
-\format{A data frame with observations of 8 variables:
+\format{
+A data frame with observations of 8 variables:
 \itemize{
             \item lagoslakeid:	    unique lake identifier developed for
             LAGOS-NE
@@ -18,14 +19,15 @@
             the authoritative lake name for LAGOSNE
             \item meandepth:	      mean lake depth (meters)
             \item meandepthsource:	source of mean depth data, see
-            "lagos.source.program" for definitions
+            "lagos_source_program" for definitions
             \item maxdepth:	      maximum lake depth (meters)
             \item maxdepthsource:	source of maximum depth data, see
-            "lagos.source.program" for definitions
+            "lagos_source_program" for definitions
             \item legacyid:	      unique lake identifier from the original
             water quality source dataset, this is not standardized and each
             source dataset has its own system
-    }}
+    }
+}
 \description{
 A dataset containing depth and names for lakes included in the limno
 module.

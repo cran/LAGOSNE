@@ -3,12 +3,18 @@
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Travis-CI Build
 Status](https://travis-ci.org/cont-limno/LAGOSNE.svg?branch=master)](https://travis-ci.org/cont-limno/LAGOSNE)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/LAGOSNE)](https://cran.r-project.org/package=LAGOSNE)
+
+[![NSF-1065786](https://img.shields.io/badge/NSF-1065786-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1065786)
+[![NSF-1638679](https://img.shields.io/badge/NSF-1638679-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1638679)
+[![NSF-1065649](https://img.shields.io/badge/NSF-1065649-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1065649)
+[![NSF-1065818](https://img.shields.io/badge/NSF-1065818-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1065818)
+[![NSF-1638554](https://img.shields.io/badge/NSF-1638554-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1638554)
 
 # LAGOSNE <img src="man/figures/logo.png" align="right" height=140/>
 
@@ -33,7 +39,7 @@ install.packages("LAGOSNE")
 
 # install development version from Github
 # install devtools if not found - install.packages("devtools")
-# devtools::install_github("cont-limno/LAGOSNE", update_dependencies = TRUE)
+# devtools::install_github("cont-limno/LAGOSNE", dependencies = TRUE)
 ```
 
 ### Data
@@ -136,19 +142,17 @@ lake_info(name = "Pine Lake", state = "Iowa")
 help.search("datasets", package = "LAGOSNE")
 ```
 
-| Package | Topic           | Title                                                         |
-| :------ | :-------------- | :------------------------------------------------------------ |
-| LAGOSNE | chag            | Climate, Hydrology, Atmospheric, and Geologic (CHAG) Datasets |
-| LAGOSNE | classifications | LAGOSNE Spatial Classifications Metadata                      |
-| LAGOSNE | conn            | Connectivity Datasets                                         |
-| LAGOSNE | epi\_nutr       | Epilimnion Water Quality Data                                 |
-| LAGOSNE | lagoslakes      | Lake Geospatial Metadata                                      |
-| LAGOSNE | lakes\_limno    | Metadata for Lakes with Water Quality                         |
-| LAGOSNE | lg\_extent      | LAGOSNE extent                                                |
-| LAGOSNE | lg\_subset      | LAGOSNE subset                                                |
-| LAGOSNE | locus           | Metadata for all lakes \> 1ha                                 |
-| LAGOSNE | lulc            | Land Use Land Cover (LULC) Data Frames                        |
-| LAGOSNE | source          | LAGOSNE sources                                               |
+| Package | Topic                  | Title                                                         |
+|:--------|:-----------------------|:--------------------------------------------------------------|
+| LAGOSNE | chag                   | Climate, Hydrology, Atmospheric, and Geologic (CHAG) Datasets |
+| LAGOSNE | classifications        | LAGOSNE Spatial Classifications Metadata                      |
+| LAGOSNE | conn                   | Connectivity Datasets                                         |
+| LAGOSNE | epi\_nutr              | Epilimnion Water Quality Data                                 |
+| LAGOSNE | lagos\_source\_program | LAGOSNE sources                                               |
+| LAGOSNE | lagoslakes             | Lake Geospatial Metadata                                      |
+| LAGOSNE | lakes\_limno           | Metadata for Lakes with Water Quality                         |
+| LAGOSNE | locus                  | Metadata for all lakes &gt; 1ha                               |
+| LAGOSNE | lulc                   | Land Use Land Cover (LULC) Data Frames                        |
 
 ### Select data
 
@@ -178,12 +182,12 @@ head(lagosne_select(table = "locus", categories = "id", dt = dt))
 #> 1     EDU_27    County_331      State_2
 #> 2     EDU_23    County_275     State_13
 head(lagosne_select(table = "epi_nutr", categories = "waterquality", dt = dt))
-#>    chla colora colort dkn doc nh4 no2 no2no3 srp tdn tdp tkn     tn toc
-#> 1 16.60     60     NA  NA  NA  NA  NA     NA  NA  NA  NA  NA     NA  NA
-#> 2 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA  NA  NA  NA 3521.7  NA
-#>   ton     tp secchi
-#> 1  NA  29.00   1.70
-#> 2  NA 136.56   0.65
+#>    chla colora colort dkn doc nh4 no2 no2no3 srp tdn tdp tkn     tn toc ton
+#> 1 16.60     60     NA  NA  NA  NA  NA     NA  NA  NA  NA  NA     NA  NA  NA
+#> 2 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA  NA  NA  NA 3521.7  NA  NA
+#>       tp secchi
+#> 1  29.00   1.70
+#> 2 136.56   0.65
 head(lagosne_select(table = "hu4.chag", categories = "deposition", dt = dt)[,1:4])
 #>   hu4_dep_no3_1985_min hu4_dep_no3_1985_max hu4_dep_no3_1985_mean
 #> 1               7.2171              10.0448                7.9366
@@ -195,12 +199,12 @@ head(lagosne_select(table = "hu4.chag", categories = "deposition", dt = dt)[,1:4
 # mix of specific variables and categories
 head(lagosne_select(table = "epi_nutr", vars = "programname", 
                     categories = c("id", "waterquality"), dt = dt))
-#>   programname lagoslakeid  chla colora colort dkn doc nh4 no2 no2no3 srp
-#> 1      MA_DEP        3201 16.60     60     NA  NA  NA  NA  NA     NA  NA
-#> 2     IA_CHEM        4510 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA
-#>   tdn tdp tkn     tn toc ton     tp secchi eventida10873
-#> 1  NA  NA  NA     NA  NA  NA  29.00   1.70         45773
-#> 2  NA  NA  NA 3521.7  NA  NA 136.56   0.65         64904
+#>   programname lagoslakeid  chla colora colort dkn doc nh4 no2 no2no3 srp tdn
+#> 1      MA_DEP        3201 16.60     60     NA  NA  NA  NA  NA     NA  NA  NA
+#> 2     IA_CHEM        4510 30.64     NA     NA  NA  NA  NA  NA 1619.6  NA  NA
+#>   tdp tkn     tn toc ton     tp secchi eventida10873
+#> 1  NA  NA     NA  NA  NA  29.00   1.70         45773
+#> 2  NA  NA 3521.7  NA  NA 136.56   0.65         64904
 ```
 
 ## Published LAGOSNE subsets
@@ -250,21 +254,22 @@ Temporal Ecology Database from Disparate Data Sources: Fostering Open
 Science and Data Reuse.” Gigascience 4 (1).
 <https://dx.doi.org/10.1186/s13742-015-0067-4>.
 
-Stachelek, J, and SK Oliver. 2017. LAGOSNE: Interface to the Lake
-Multi-Scaled Geospatial and Temporal Database.
-<https://github.com/cont-limno/LAGOSNE>.
+Stachelek J., Oliver S. 2017. LAGOSNE: Interface to the Lake
+Multi-scaled Geospatial and Temporal Database. R package version 1.1.0.
+<https://cran.r-project.org/package=LAGOSNE>
 
 Soranno P, Cheruvelil K. 2017. LAGOS-NE-LOCUS v1.01: a module for
 LAGOS-NE, a multi-scaled geospatial and temporal database of lake
 ecological context and water quality for thousands of U.S. Lakes:
-1925–2013. Environmental Data Initiative. <http://doi.org/ckpj>
+1925–2013. Environmental Data Initiative. <https://doi.org/ckpj>
 
-Soranno P, Cheruvelil K. 2017. LAGOS-NE-LIMNO v1.087.1: a module for
+Soranno P, Cheruvelil K. 2019. LAGOS-NE-LIMNO v1.087.3: a module for
 LAGOS-NE, a multi-scaled geospatial and temporal database of lake
 ecological context and water quality for thousands of U.S. Lakes:
-1925–2013. Environmental Data Initiative. <http://doi.org/ckpk>.
+1925–2013. Environmental Data Initiative.
+<https://doi.org/10.6073/PASTA/08C6F9311929F4874B01BCC64EB3B2D7>.
 
 Soranno P, Cheruvelil K. 2017. LAGOS-NE-GEO v1.05: a module for
 LAGOS-NE, a multi-scaled geospatial and temporal database of lake
 ecological context and water quality for thousands of U.S. Lakes:
-1925–2013. Environmental Data Initiative. <http://doi.org/ckpm>
+1925–2013. Environmental Data Initiative. <https://doi.org/ckpm>

@@ -4,8 +4,7 @@
 \alias{lagos_ingest}
 \title{Ingest LAGOSNE flat files}
 \usage{
-lagos_ingest(version, limno_folder = NA, geo_folder = NA,
-  locus_folder = NA)
+lagos_ingest(version, limno_folder = NA, geo_folder = NA, locus_folder = NA)
 }
 \arguments{
 \item{version}{character LAGOSNE database version string}
@@ -21,7 +20,7 @@ Ingest LAGOSNE data from component flat files
 }
 \examples{
 \dontrun{
-lagos_ingest("1.087.1",
+lagos_ingest("1.087.3",
  limno_folder = "~/Downloads/LAGOS-NE-LIMNO-EXPORT",
  geo_folder   = "~/Downloads/LAGOS-NE-GEO-EXPORT",
  locus_folder = "~/Downloads/LAGOS-NE-LOCUS-EXPORT")

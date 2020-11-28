@@ -1,8 +1,22 @@
+# LAGOSNE 2.0.2
+
+## MAJOR IMPROVEMENTS
+
+* Massive increase in data loading speed using the `qs` package
+
+## BUG FIXES
+
+* Update data documentation and `lake_info` function for LAGOS version 1.087.3
+
+## MAINTENANCE CHANGES
+
+* Turn off checking external URLs per CRAN policy
+
 # LAGOSNE 2.0.1
 
 ## BUG FIXES
 
-* Fixed critical error in date conversion for `epi_nur` table.
+* Fixed critical error in date conversion for `epi_nutr` table.
 
 # LAGOSNE 2.0.0
 
