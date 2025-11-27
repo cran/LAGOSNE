@@ -1,3 +1,13 @@
+## LAGOSNE 2.0.4
+
+### MAINTENANCE CHANGES
+
+* Switch `qs` dependency to `qs2` due to pending removal from CRAN
+
+### BUG FIXES
+
+* fix for broken data downloads via `lagosne_get`
+
 ## LAGOSNE 2.0.3
 
 ### BUG FIXES

@@ -1,11 +1,11 @@
 #' Interface to the LAGOSNE lakes database
 #' @name LAGOSNE-package
 #' @aliases LAGOSNE
-#' @docType package
 #' @importFrom magrittr %>%
 #' @title R interface to the LAGOSNE lakes database
 #' @author \email{stachel2@msu.edu}
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 #' Latest LAGOSNE version
 #' @name lagosne_version
@@ -449,7 +449,7 @@ NULL
 #' @name lakes_limno
 #' @aliases meandepth maxdepth legacyid depth
 #' @seealso \code{\link[LAGOSNE]{lakes.geo}}
-#' @references Soranno et al. (2017) \doi{10.1093/gigascience/gix101}{Gigascience 6:12}
+#' @references Soranno et al. (2017) \doi{10.1093/gigascience/gix101}
 NULL
 
 #' Metadata for all lakes > 1ha
@@ -784,7 +784,7 @@ NULL
 #' @name conn
 #' @aliases connectivity buffer500m.conn iws.conn hu12.conn hu8.conn hu4.conn edu.conn county.conn state.conn
 #' @seealso \code{\link[LAGOSNE]{lakes.geo}}
-#' @references Soranno et al. (2017) \doi{10.1093/gigascience/gix101}{Gigascience 6:12}
+#' @references Soranno et al. (2017) \doi{10.1093/gigascience/gix101}
 NULL
 
 #' Lake Geospatial Metadata
